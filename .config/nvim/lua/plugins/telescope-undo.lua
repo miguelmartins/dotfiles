@@ -25,7 +25,7 @@ return {
 				},
 				entry_format = "state #$ID, $STAT, $TIME",
 				time_format = "",
-				saved_only = false,
+				saved_only = true,
 			},
 		},
 	},

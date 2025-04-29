@@ -25,6 +25,17 @@ vim.opt.inccommand = 'split'
 vim.opt.number = true
 vim.opt.relativenumber = true
 vim.opt.scrolloff = 8  -- never have less than 8 lines at eof
+-- enable persistent undo
+local undodir = vim.fn.stdpath('data') .. '/undo//'
+if vim.fn.isdirectory(vim.fn.stdpath('data') .. '/undo') == 0 then
+  vim.fn.mkdir(vim.fn.stdpath('data') .. '/undo', 'p', tonumber('755', 8))
+end
+vim.opt.undofile = true
+vim.opt.undodir = undodir
+-- increase undo levels
+vim.opt.undolevels = 10000
+-- increase undo reload size
+vim.opt.undoreload = 10000
 vim.cmd("set tabstop=4")
 vim.cmd("set softtabstop=4")
 vim.cmd("set shiftwidth=4")
