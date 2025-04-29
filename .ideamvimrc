@@ -1,0 +1,42 @@
+" — Enable relative line numbers (requires PyCharm 2020.1+)
+set relativenumber
+set number
+
+" — Leader key (optional)
+let mapleader = "\<Space>"
+
+" — Quick remap: ; to :
+nmap ; :
+
+" — Better window navigation
+nmap <C-h> <C-w>h
+nmap <C-j> <C-w>j
+nmap <C-k> <C-w>k
+nmap <C-l> <C-w>l
+
+" — Use jk in insert mode to escape quickly
+inoremap jk <Esc>
+
+" — Center cursor after jumping
+nnoremap n nzz
+nnoremap N Nzz
+nnoremap G Gzz
+nnoremap gg ggzz
+
+" — Text-object tweaks (if you use Surround, Commentary, etc.)
+" e.g., treat underscores as part of a word
+set iskeyword+=_
+
+" — Disable conflicting IDE shortcuts (example: disable Cmd+1…9 in mac)
+" Map PyCharm tool windows to Leader + digit instead
+nmap <Leader>1 <Esc><Cmd>ToolWindows.Project<CR>
+" …repeat for others as needed
+
+" — Example custom motions
+" remap H/L to go to start/end of line
+nnoremap H ^
+nnoremap L $
+
+" — Plugin-like commands: sort, align, etc.
+" map <Leader>s :!sort<CR>
+
