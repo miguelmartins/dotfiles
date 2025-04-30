@@ -14,6 +14,11 @@ return {
 			require("mason-null-ls").setup({
 				ensure_installed = {
 					-- Opt to list sources here, when available in mason.
+                   "lua_ls",
+                    "prettier", -- ts/js formatter
+                    "stylua", -- lua formatter
+                    "shfmt",
+                    "ruff",
 				},
 				automatic_installation = false,
 				handlers = {},
@@ -25,6 +30,12 @@ return {
 					null_ls.builtins.formatting.prettier.with({ filetypes = { "html", "json", "yaml", "markdown" } }),
 					null_ls.builtins.formatting.shfmt.with({ args = { "-i", "4" } }),
 					null_ls.builtins.formatting.stylua,
+                    null_ls.builtins.diagnostics.ruff.with({
+          -- pass any extra args you like, e.g. max-line-length:
+          extra_args = {'--extend-select', 'I'},
+        }),
+        -- (Optional) Ruff as a formatter
+        null_ls.builtins.formatting.ruff,
 				},
 			})
 			vim.keymap.set("n", "<leader>gf", vim.lsp.buf.format, {})
