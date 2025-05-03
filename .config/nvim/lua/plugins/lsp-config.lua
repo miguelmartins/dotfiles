@@ -22,9 +22,8 @@ return {
 			require("mason-tool-installer").setup({
 				ensure_installed = {
 					"prettier", -- ts/js formatter
-					"stylua", -- lua formatter
-					"ruff",
 					"black",
+					"isort",
 				},
 			})
 		end,
@@ -202,20 +201,7 @@ return {
 			local servers = {
 				-- clangd = {},
 				-- gopls = {},
-				pyright = {
-					settings = {
-						pyright = {
-							-- Using Ruff's import organizer
-							disableOrganizeImports = true,
-						},
-						python = {
-							analysis = {
-								-- Ignore all files for analysis to exclusively use Ruff for linting
-								ignore = { "*" },
-							},
-						},
-					},
-				},
+				pyright = {},
 
 				lua_ls = {
 					-- cmd = { ... },
@@ -249,7 +235,6 @@ return {
 			local ensure_installed = vim.tbl_keys(servers or {})
 			vim.list_extend(ensure_installed, {
 				"stylua", -- Used to format Lua code
-				"ruff",
 				"isort",
 			})
 			require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
@@ -303,7 +288,7 @@ return {
 			formatters_by_ft = {
 				lua = { "stylua" },
 				-- Conform can also run multiple formatters sequentially
-				python = { "isort", "ruff" },
+				python = { "isort", "black" },
 				--
 				-- You can use 'stop_after_first' to run the first available formatter from the list
 				-- javascript = { "prettierd", "prettier", stop_after_first = true },
