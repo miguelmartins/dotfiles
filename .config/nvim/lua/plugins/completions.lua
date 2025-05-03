@@ -1,5 +1,19 @@
 return {
 	{
+		"saghen/blink.compat",
+		version = "*", -- keep it in step with your blink.cmp version
+		lazy = false, -- load on startup so the fake `cmp` exists early
+		opts = {}, -- mandatory so :setup() runs
+	},
+
+	-- ② the vimtex completion source ------------
+	{
+		"micangl/cmp-vimtex",
+		ft = "tex",
+		-- make sure blink.compat is around first
+		dependencies = { "saghen/blink.compat" },
+	},
+	{
 		-- `lazydev` configures Lua LSP for your Neovim config, runtime and plugins
 		-- used for completion, annotations and signatures of Neovim apis
 		"folke/lazydev.nvim",
@@ -71,6 +85,11 @@ return {
 				default = { "lsp", "path", "snippets", "lazydev" },
 				providers = {
 					lazydev = { module = "lazydev.integrations.blink", score_offset = 100 },
+					vimtex = {
+						-- if you used the compat shim:           ↓
+						module = "blink.compat.source",
+						score_offset = 100,
+					},
 				},
 			},
 

@@ -2,7 +2,7 @@ return {
 	"L3MON4D3/LuaSnip",
 	version = "v2.*",
 	dependencies = {
-		"saadparwaiz1/cmp_luasnip",
+		--	"saadparwaiz1/cmp_luasnip",
 		"rafamadriz/friendly-snippets",
 	},
 	build = "make install_jsregexp",
@@ -18,9 +18,9 @@ return {
 		})
 		local ls = require("luasnip")
 		ls.setup({
-			update_events = { "TextChanged", "TextChangedI" },
-			enable_autosnippets = true,
-			store_selection_keys = "<Tab>",
+			--	update_events = { "TextChanged", "TextChangedI" },
+			--	enable_autosnippets = true,
+			-- store_selection_keys = "<Tab>",
 		})
 		vim.keymap.set({ "i" }, "<C-k>", function()
 			ls.expand()
