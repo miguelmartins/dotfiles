@@ -9,6 +9,8 @@ local visualSelectionOrInsert = function(args, parent)
 		return sn(nil, i(1))
 	end
 end
+
+local math_string_pattern = [[[\\%w%.%_%-%"%']+$]]
 return {
 	s({
 		trig = ";a",
@@ -55,7 +57,7 @@ return {
 	), --postfixes for vectors, hats, etc. The match pattern is '\\' plus the default (so that hats get put on greek letters,e.g.)
 	postfix({
 		trig = "hat",
-		match_pattern = [[[\\%w%.%_%-%"%']+$]],
+		match_pattern = math_string_pattern,
 		snippetType = "autosnippet",
 		dscr = "postfix hat when in math mode",
 	}, { l("\\hat{" .. l.POSTFIX_MATCH .. "}") }, { condition = math }),
@@ -65,6 +67,30 @@ return {
 		snippetType = "autosnippet",
 		dscr = "postfix vec when in math mode",
 	}, { l("\\vec{" .. l.POSTFIX_MATCH .. "}") }, { condition = math }),
+	postfix({
+		trig = "mcal",
+		match_pattern = math_string_pattern,
+		snippetType = "autosnippet",
+		dscr = "postfix mathcal when in math mode",
+	}, { l("\\mathcal{" .. l.POSTFIX_MATCH .. "}") }, { condition = math }),
+	postfix({
+		trig = "mbb",
+		match_pattern = math_string_pattern,
+		snippetType = "autosnippet",
+		dscr = "postfix mathbb when in math mode",
+	}, { l("\\mathbb{" .. l.POSTFIX_MATCH .. "}") }, { condition = math }),
+	postfix({
+		trig = "mbf",
+		match_pattern = math_string_pattern,
+		snippetType = "autosnippet",
+		dscr = "postfix beefy when in math mode",
+	}, { l("\\mathbf{" .. l.POSTFIX_MATCH .. "}") }, { condition = math }),
+	postfix({
+		trig = "mbs",
+		match_pattern = math_string_pattern,
+		snippetType = "autosnippet",
+		dscr = "postfix boldsymbol when in math mode",
+	}, { l("\\boldsymbol{" .. l.POSTFIX_MATCH .. "}") }, { condition = math }),
 	s(
 		"textbf",
 		f(function(args, snip)

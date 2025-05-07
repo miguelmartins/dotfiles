@@ -46,8 +46,21 @@ on-focus-changed = ['move-mouse window-lazy-center']
 # Also see: https://nikitabobko.github.io/AeroSpace/goodies#disable-hide-app
 automatically-unhide-macos-hidden-apps = false
 
+
 [[on-window-detected]]
-if.app-name-regex-substring = 'dicord'
+if.app-name-regex-substring = 'mail'
+run = 'layout floating'
+
+[[on-window-detected]]
+if.app-name-regex-substring = 'outlook'
+run = 'layout floating'
+
+[[on-window-detected]]
+if.app-name-regex-substring = 'calendar'
+run = 'layout floating'
+
+[[on-window-detected]]
+if.app-name-regex-substring = 'discord'
 run = 'layout floating'
 
 [[on-window-detected]]
