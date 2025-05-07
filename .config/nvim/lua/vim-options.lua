@@ -39,3 +39,7 @@ vim.opt.undoreload = 10000
 vim.cmd("set tabstop=4")
 vim.cmd("set softtabstop=4")
 vim.cmd("set shiftwidth=4")
+
+-- Add for vimtex compatability
+vim.cmd("filetype plugin indent on")
+vim.cmd("syntax enable")
