@@ -3,6 +3,8 @@ vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"
 vim.api.nvim_set_keymap("n", "<C-d>", "<C-d>zz", { noremap = true })
 vim.api.nvim_set_keymap("n", "<C-u>", "<C-u>zz", { noremap = true })
+vim.api.nvim_set_keymap("n", "<C-i>", "<C-i>zz", { noremap = true })
+vim.api.nvim_set_keymap("n", "<C-o>", "<C-o>zz", { noremap = true })
 vim.api.nvim_set_keymap("n", "n", "nzzzv", { noremap = true })
 vim.api.nvim_set_keymap("n", "N", "Nzzzv", { noremap = true })
 -- Clear highlights on search when pressing <Esc> in normal mode
@@ -14,6 +16,16 @@ vim.keymap.set("n", "<c-j>", ":wincmd j<CR>")
 vim.keymap.set("n", "<c-h>", ":wincmd h<CR>")
 vim.keymap.set("n", "<c-l>", ":wincmd l<CR>")
 
+-- temporary auto-import python solution
+-- from kickstart.nvim
+vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Open diagnostic [Q]uickfix list" })
+vim.api.nvim_create_autocmd("TextYankPost", {
+	desc = "Highlight when yanking (copying) text",
+	group = vim.api.nvim_create_augroup("kickstart-highlight-yank", { clear = true }),
+	callback = function()
+		vim.highlight.on_yank()
+	end,
+})
 -- options
 vim.opt.expandtab = true
 vim.opt.guicursor = "n-v-c:block-Cursor/blinkon1"

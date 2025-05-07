@@ -11,6 +11,7 @@ return {
 			require("mason-lspconfig").setup({
 				ensure_installed = {
 					"lua_ls",
+					"pyright",
 					"ruff",
 				}, -- consider switching to basedpyright
 			})
@@ -23,11 +24,6 @@ return {
 				ensure_installed = {
 					"prettier", -- prettier formatter
 					"stylua", -- lua formatter
-					"isort", -- python formatter
-					"black", -- python formatter
-					"ruff",
-					"pylint", -- python linter
-					"eslint_d",
 				},
 			})
 		end,
@@ -50,6 +46,11 @@ return {
 					local map = function(keys, func, desc, mode)
 						mode = mode or "n"
 						vim.keymap.set(mode, keys, func, { buffer = event.buf, desc = "LSP: " .. desc })
+					end
+
+					local client = vim.lsp.get_client_by_id(event.data.client_id)
+					if client and client.name == "ruff" then
+						client.server_capabilities.hoverProvider = false
 					end
 
 					map("grn", vim.lsp.buf.rename, "[R]e[n]ame")
@@ -88,7 +89,6 @@ return {
 					--
 					-- When you move your cursor, the highlights will be cleared (the second autocommand).
 
-					local client = vim.lsp.get_client_by_id(event.data.client_id)
 					if
 						client
 						and client_supports_method(
@@ -160,34 +160,35 @@ return {
 				},
 			})
 
-			-- LSP servers and clients are able to communicate to each other what features they support.
-			--  By jefault, Neovim doesn't support everything that is in the LSP specification.
 			--  When you add blink.cmp, luasnip, etc. Neovim now has *more* capabilities.
 			--  So, we create new capabilities with blink.cmp, and then broadcast that to the servers.
 			local capabilities = require("blink.cmp").get_lsp_capabilities()
-			-- Enable the following language servers
-			--  Feel free to add/remove any LSPs that you want here. They will automatically be installed.
-			--
-			--  Add any additional override configuration in the following tables. Available keys are:
-			--  - cmd (table): Override the default command used to start the server
-			--  - filetypes (table): Override the default list of associated filetypes for the server
-			--  - capabilities (table): Override fields in capabilities. Can be used to disable certain LSP features.
-			--  - settings (table): Override the default settings passed when initializing the server.
-			--        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
 			local servers = {
 				lua_ls = {
 					settings = {
 						Lua = { completion = { callSnippet = "Replace" } },
 					},
 				},
+				pyright = {},
 				ruff = {},
+				-- settings = {
+				-- 	python = {
+				-- 		analysis = {
+				-- 			typeCheckingMode = "off",
+				-- 			autoSearchPaths = true,
+				-- 			useLibraryCodeForTypes = true,
+				-- 			diagnosticMode = "off",
+				-- 			autoImportCompletions = false,
+				-- 		},
+				-- 		linting = {
+				-- 			enabled = false,
+				-- 		},
+				-- 	},
+				-- },
 			}
-
 			local ensure_installed = vim.tbl_keys(servers or {})
 			vim.list_extend(ensure_installed, {
 				"stylua",
-				"black",
-				"ruff",
 			})
 			require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
 
@@ -200,6 +201,7 @@ return {
 						-- This handles overriding only values explicitly passed
 						-- by the server configuration above. Useful when disabling
 						-- certain features of an LSP (for example, turning off formatting for ts_ls)
+						print(server)
 						server.capabilities = vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {})
 						require("lspconfig")[server_name].setup(server)
 					end,
@@ -227,13 +229,14 @@ return {
 					markdown = { "prettier" },
 					graphql = { "prettier" },
 					lua = { "stylua" },
-					python = { "isort", "black" },
+					python = { "ruff_format" },
+					--		python = { "ruff_format", "ruff_fix", "ruff_organize_imports" },
 				},
 				format_on_save = {
 					-- setting fallback to false so that Conform does not use Ruff as LSP
-					lsp_fallback = true,
+					lsp_fallback = false,
 					async = false,
-					timeout_ms = 5000,
+					timeout_ms = 500,
 				},
 			})
 
@@ -241,9 +244,36 @@ return {
 				conform.format({
 					lsp_fallback = true,
 					async = false,
-					timeout_ms = 5000,
+					timeout_ms = 500,
 				})
 			end, { desc = "Format file or range (in visual mode)" })
 		end,
 	},
+	-- {
+	-- 	"mfussenegger/nvim-lint",
+	-- 	event = {
+	-- 		"BufReadPre",
+	-- 		"BufNewFile",
+	-- 	},
+	-- 	config = function()
+	-- 		local lint = require("lint")
+	--
+	-- 		lint.linters_by_ft = {
+	-- 			python = { "ruff" },
+	-- 		}
+	--
+	-- 		local lint_augroup = vim.api.nvim_create_augroup("lint", { clear = true })
+	--
+	-- 		vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost", "InsertLeave" }, {
+	-- 			group = lint_augroup,
+	-- 			callback = function()
+	-- 				lint.try_lint()
+	-- 			end,
+	-- 		})
+	--
+	-- 		vim.keymap.set("n", "<leader>l", function()
+	-- 			lint.try_lint()
+	-- 		end, { desc = "Trigger linting for current file" })
+	-- 	end,
+	-- },
 }
