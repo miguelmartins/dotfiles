@@ -15,7 +15,7 @@ return {
 	},
 	keys = {
 		{
-			"<leader>b",
+			"<leader>eb",
 			function()
 				require("neo-tree.command").execute({
 					source = "buffers",
@@ -37,10 +37,10 @@ return {
 			desc = "Filesystem (root dir)",
 		},
 		{
-			"<leader>e",
+			"<leader>eg",
 			function()
 				require("neo-tree.command").execute({
-					source = "filesystem",
+					source = "git_satus",
 					position = "left",
 					toggle = true,
 				})

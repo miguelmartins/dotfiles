@@ -7,6 +7,8 @@ vim.api.nvim_set_keymap("n", "<C-i>", "<C-i>zz", { noremap = true })
 vim.api.nvim_set_keymap("n", "<C-o>", "<C-o>zz", { noremap = true })
 vim.api.nvim_set_keymap("n", "n", "nzzzv", { noremap = true })
 vim.api.nvim_set_keymap("n", "N", "Nzzzv", { noremap = true })
+vim.keymap.set("x", "<leader>p", '"_dP')
+vim.keymap.set("n", "<leader>ef", "<cmd>silent !tmux new-window tmux-sessionizer<CR>")
 -- Clear highlights on search when pressing <Esc> in normal mode
 --  See `:help hlsearch`
 vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>")
