@@ -20,6 +20,7 @@ return {
 				require("neo-tree.command").execute({
 					source = "buffers",
 					position = "left",
+					toggle = true,
 				})
 			end,
 			desc = "Buffers (root dir)",
@@ -30,6 +31,18 @@ return {
 				require("neo-tree.command").execute({
 					source = "filesystem",
 					position = "left",
+					toggle = true,
+				})
+			end,
+			desc = "Filesystem (root dir)",
+		},
+		{
+			"<leader>e",
+			function()
+				require("neo-tree.command").execute({
+					source = "filesystem",
+					position = "left",
+					toggle = true,
 				})
 			end,
 			desc = "Filesystem (root dir)",
