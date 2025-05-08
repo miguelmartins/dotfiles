@@ -131,8 +131,10 @@ if [ -f '/Users/miguelmartins/Downloads/google-cloud-sdk/completion.zsh.inc' ]; 
 export GEM_HOME="$HOME/.gem"
 export PATH="$PATH:$GEM_HOME/bin"
 export PATH="$HOME/.tmuxifier/bin:$PATH"
+export PATH="$PATH":"$HOME/.local/scripts/"
 eval "$(tmuxifier init -)"
 eval "$(rbenv init -)"
+bindkey -s ^f "tmux-sessionizer\n"
 # The following lines have been added by Docker Desktop to enable Docker CLI completions.
 fpath=(/Users/miguelmartins/.docker/completions $fpath)
 autoload -Uz compinit
