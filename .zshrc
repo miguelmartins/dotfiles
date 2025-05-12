@@ -77,7 +77,7 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git brew macos zsh-autosuggestions zsh-syntax-highlighting colored-man-pages)
+plugins=(git brew macos zoxide zsh-autosuggestions zsh-syntax-highlighting colored-man-pages)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -134,6 +134,7 @@ export PATH="$HOME/.tmuxifier/bin:$PATH"
 export PATH="$PATH":"$HOME/.local/scripts/"
 eval "$(tmuxifier init -)"
 eval "$(rbenv init -)"
+eval "$(fzf --zsh)"
 bindkey -s ^f "tmux-sessionizer\n"
 # The following lines have been added by Docker Desktop to enable Docker CLI completions.
 fpath=(/Users/miguelmartins/.docker/completions $fpath)
@@ -143,15 +144,14 @@ compinit
 alias lzd='lazydocker'
 alias lg='lazygit'
 alias vim="nvim"
+alias work="pomodoro Work 30m > /dev/null 2>&1 &"
+alias breaky="pomodoro Breaky breaky 5m > /dev/null 2>&1 &"
 source ~/powerlevel10k/powerlevel10k.zsh-theme
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 export EDITOR=nvim
 export VISUAL="$EDITOR"
-if command -v zoxide > /dev/null; then
-  eval "$(zoxide init zsh)"
-fi
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
