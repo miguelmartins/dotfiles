@@ -128,9 +128,12 @@ if [ -f '/Users/miguelmartins/Downloads/google-cloud-sdk/path.zsh.inc' ]; then .
 
 # The next line enables shell command completion for gcloud.
 if [ -f '/Users/miguelmartins/Downloads/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/miguelmartins/Downloads/google-cloud-sdk/completion.zsh.inc'; fi
+
 export GEM_HOME="$HOME/.gem"
 export PATH="$PATH:$GEM_HOME/bin"
 export PATH="$HOME/.tmuxifier/bin:$PATH"
+export PATH="$PATH":"$HOME/.local/scripts/"
+
 eval "$(tmuxifier init -)"
 eval "$(rbenv init -)"
 # The following lines have been added by Docker Desktop to enable Docker CLI completions.
