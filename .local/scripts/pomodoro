@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+if [[ $# -eq 1 ]]; then
+    time=$1
+else
+    echo "Provide duration to pomodoro in XX[s/m/h]" 
+fi
+
+timer $time && terminal-notifier -message 'Pomodoro'\
+        -title "$name Timer is up!"\
+        -sound Crystal 
