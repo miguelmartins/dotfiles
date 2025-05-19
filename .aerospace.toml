@@ -46,19 +46,6 @@ on-focus-changed = ['move-mouse window-lazy-center']
 # Also see: https://nikitabobko.github.io/AeroSpace/goodies#disable-hide-app
 automatically-unhide-macos-hidden-apps = false
 
-
-[[on-window-detected]]
-if.app-name-regex-substring = 'mail'
-run = 'layout floating'
-
-[[on-window-detected]]
-if.app-name-regex-substring = 'outlook'
-run = 'layout floating'
-
-[[on-window-detected]]
-if.app-name-regex-substring = 'calendar'
-run = 'layout floating'
-
 [[on-window-detected]]
 if.app-name-regex-substring = 'discord'
 run = 'layout floating'
@@ -163,21 +150,23 @@ run = 'layout floating'
     alt-2 = 'workspace 2'
     alt-3 = 'workspace 3'
     alt-4 = 'workspace 4'
+    alt-5 = 'workspace 5' 
 
     # See: https://nikitabobko.github.io/AeroSpace/commands#move-node-to-workspace
     alt-shift-1 = 'move-node-to-workspace 1'
     alt-shift-2 = 'move-node-to-workspace 2'
     alt-shift-3 = 'move-node-to-workspace 3'
     alt-shift-4 = 'move-node-to-workspace 4'
+    alt-shift-5 = 'move-node-to-workspace 5'
 
     # See: https://nikitabobko.github.io/AeroSpace/commands#workspace-back-and-forth
     alt-tab = 'workspace-back-and-forth'
     # See: https://nikitabobko.github.io/AeroSpace/commands#move-workspace-to-monitor
     alt-shift-tab = 'move-workspace-to-monitor --wrap-around next'
 
+    alt-o = 'fullscreen'
     # See: https://nikitabobko.github.io/AeroSpace/commands#mode
     alt-shift-semicolon = 'mode service'
-
 # 'service binding mode declaration.
 # See: https://nikitabobko.github.io/AeroSpace/guide#binding-modes
 [mode.service.binding]
@@ -185,7 +174,6 @@ run = 'layout floating'
     r = ['flatten-workspace-tree', 'mode main'] # reset layout
     f = ['layout floating tiling', 'mode main'] # Toggle between floating and tiling layout
     backspace = ['close-all-windows-but-current', 'mode main']
-    o = 'fullscreen'
 
     # sticky is not yet supported https://github.com/nikitabobko/AeroSpace/issues/2
     #s = ['layout sticky tiling', 'mode main']
